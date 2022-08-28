@@ -3,10 +3,103 @@
     padding: 0;
     box-sizing: border-box;
 }
-.App{
+/* .App{
     background-color: #283046;
     height: 100vh;
+} */
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+}
+.overlay{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border-radius: 15px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    overflow: hidden;
 }
 .MuiTablePagination-spacer{
     flex: 0 !important;
+}
+.MuiPaper-root{
+    background-color: unset !important;
+}
+.MuiTableContainer-root {
+    width: 98%;
+}
+.flex-pagination{
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    justify-content: space-between;
+    padding: 0 2rem;
+    background-color: #283046;
+    margin: 0 1rem;
+}
+.date-btn{
+    width: 10rem;
+    height: 30px;
+    text-align: left;
+    border-radius: 8px;
+    border: 1px solid #fff;
+    background-color: #283046;
+    color: #fff;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+.data-stats{
+    background-color: #283046;
+    display: grid;
+    gap: 1rem;
+    border-radius: 10px;
+    margin: 1rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 2rem 10rem;
+    color: #fff;
+}
+.stat-component{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.img-container{
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 0.5rem;
+    margin-right: 1rem;
+}
+.stat-data{
+    font-size: larger;
+    font-weight: 700;
+}
+.stat-title{
+    font-size: small;
+}
+.grid-img{
+    margin-right: 1rem;
+}
+
+@media screen and (max-width: 430px) {
+    .flex-pagination{
+        flex-direction: column;
+        padding: unset;
+        font-size: small;
+        align-items: flex-end;
+        justify-content: center;
+    }
+    .data-stats{
+        grid-template-columns: 1fr 1fr;
+        padding: 0.5rem;
+    }
 }

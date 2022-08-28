@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Table, TableContainer, TableBody, TableCell, TableHead, TableRow, Paper, makeStyles, TablePagination } from '@material-ui/core';
+import ReactDOM from 'react-dom';
+import { Table, TableContainer, TableBody, TableCell, TableHead, TableRow, Paper, makeStyles, TablePagination, Grid } from '@material-ui/core';
 import { styled } from '@mui/material/styles';
 import Moment from 'moment';
 import '../App.css';
+import android from '../assets/android-filled.svg';
+import apple from '../assets/apple-filled.svg';
 
 import DateRange from "./DateRange";
 
@@ -11,11 +14,12 @@ const useStyles = makeStyles({
     },
     TableContainer: {
         maxHeight: 800,
-        margin: "0",
+        margin: "1%",
+        marginTop: "0",
         borderRadius: "10px",
     },
     TableHeaderCell: {
-        fontSize: '1.2rem',
+        fontSize: '1rem',
         fontWeight: 'bold',
         backgroundColor: '#271c1c',
         color: '#fff',
@@ -31,17 +35,18 @@ const useStyles = makeStyles({
     },
 });
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-      backgroundColor: "#1d1d2f",
-    },
-    '&:nth-of-type(even)': {
       backgroundColor: "#283046",
-    },
     // hide last border
     '&:last-child td, &:last-child th': {
       border: 0,
     },
   }));
+
+  const Backdrop = (props) => {
+    return (
+        <div className='backdrop' onClick={props.onClick}/>
+    );
+};
 
 
 const MakeTable = () => {
@@ -52,6 +57,7 @@ const MakeTable = () => {
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [sDate, setSDate] = useState('2022-06-01');
     const [eDate, setEDate] = useState('2022-07-01');
+    const [modal, setModal] = useState(false);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -69,6 +75,14 @@ const MakeTable = () => {
         setEDate(Moment(ranges.endDate).format('YYYY-MM-DD'));
       };
 
+      const modalHandler = () => {
+        setModal(true);
+      }
+
+      const closeModalHandler = () => {
+        setModal(false);
+      }
+
       useEffect(() => {
           const fetchData = async () => {
               const result = await fetch(`https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate=${sDate}&todate=${eDate}`);
@@ -80,8 +94,10 @@ const MakeTable = () => {
         
 
     return (
-      <TableContainer component={Paper} className={classes.TableContainer}>
-        <DateRange onChange={onChangeDate}/>
+      <div className='makeTable'>
+        {modal && ReactDOM.createPortal(<Backdrop onClick={closeModalHandler} />, document.getElementById('backdrop-root'))}
+        {modal && ReactDOM.createPortal(<DateRange onChange={onChangeDate}/>, document.getElementById('overlay-root'))}
+        <div className='flex-pagination'>
         <TablePagination
                 className={classes.TablePaginationCell}
                 rowsPerPageOptions={[5, 10, 20, 50, 80, 100]}
@@ -92,7 +108,9 @@ const MakeTable = () => {
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
-        <div></div>
+        <button onClick={modalHandler} className='date-btn'>Select Duration</button>
+        </div>
+      <TableContainer component={Paper} className={classes.TableContainer}>
         <Table className={classes.table} aria-label="simple table" stickyHeader>
           <TableHead>
             <TableRow>
@@ -103,28 +121,19 @@ const MakeTable = () => {
                 Day Installs
               </TableCell>
               <TableCell className={classes.TableHeaderCell} align="center">
-                IOS Installs
-              </TableCell>
-              <TableCell className={classes.TableHeaderCell} align="center">
-                Android Installs
+                Platform
               </TableCell>
               <TableCell className={classes.TableHeaderCell} align="center">
                 Day Uninstalls
               </TableCell>
               <TableCell className={classes.TableHeaderCell} align="center">
-                IOS Uninstalls
-              </TableCell>
-              <TableCell className={classes.TableHeaderCell} align="center">
-                Android Uninstalls
+                Platform
               </TableCell>
               <TableCell className={classes.TableHeaderCell} align="center">
                 Churn Rate
               </TableCell>
               <TableCell className={classes.TableHeaderCell} align="center">
-                IOS Churn
-              </TableCell>
-              <TableCell className={classes.TableHeaderCell} align="center">
-                Android Churn
+                Platform
               </TableCell>
             </TableRow>
           </TableHead>
@@ -148,13 +157,16 @@ const MakeTable = () => {
                         className={classes.TableRowCell}
                         align="center"
                       >
-                        {row.ios_install}
-                      </TableCell>
-                      <TableCell
-                        className={classes.TableRowCell}
-                        align="center"
-                      >
-                        {row.android_install}
+                        <Grid container spacing={1}>
+                          <Grid item xs={10}>
+                            <img className='grid-img' src={apple} alt="logo"></img>
+                            {row.ios_install}
+                          </Grid>
+                          <Grid item xs={10}>
+                            <img className='grid-img' src={android} alt="logo"></img>
+                            {row.android_install}
+                          </Grid>
+                        </Grid>
                       </TableCell>
                       <TableCell
                         className={classes.TableRowCell}
@@ -166,13 +178,16 @@ const MakeTable = () => {
                         className={classes.TableRowCell}
                         align="center"
                       >
-                        {row.ios_uninstall}
-                      </TableCell>
-                      <TableCell
-                        className={classes.TableRowCell}
-                        align="center"
-                      >
-                        {row.android_uninstall}
+                        <Grid container spacing={1}>
+                          <Grid item xs={10}>
+                            <img className='grid-img' src={apple} alt="logo"></img>
+                            {row.ios_uninstall}
+                          </Grid>
+                          <Grid item xs={10}>
+                            <img className='grid-img' src={android} alt="logo"></img>
+                            {row.android_uninstall}
+                          </Grid>
+                        </Grid>
                       </TableCell>
                       <TableCell
                         className={classes.TableRowCell}
@@ -184,13 +199,16 @@ const MakeTable = () => {
                         className={classes.TableRowCell}
                         align="center"
                       >
-                        {row.ios_churn}
-                      </TableCell>
-                      <TableCell
-                        className={classes.TableRowCell}
-                        align="center"
-                      >
-                        {row.android_churn}
+                        <Grid container spacing={1}>
+                          <Grid item xs={10}>
+                            <img className='grid-img' src={apple} alt="logo"></img>
+                            {row.ios_churn}%
+                          </Grid>
+                          <Grid item xs={10}>
+                            <img className='grid-img' src={android} alt="logo"></img>
+                            {row.android_churn}%
+                          </Grid>
+                        </Grid>
                       </TableCell>
                     </StyledTableRow>
                   );
@@ -198,6 +216,7 @@ const MakeTable = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      </div>
     );
 }
 

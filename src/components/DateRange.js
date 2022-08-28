@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import '../App.css';
 
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
@@ -24,6 +25,7 @@ const DateRange = ({ onChange }) => {
   return (
     <DateRangePicker
       onChange={handleOnChange}
+      className='overlay'
       showSelectionPreview={true}
       moveRangeOnFirstSelection={false}
       months={2}
