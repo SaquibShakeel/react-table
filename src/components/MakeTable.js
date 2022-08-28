@@ -54,7 +54,7 @@ const MakeTable = () => {
     const classes = useStyles();
 
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [rowsPerPage, setRowsPerPage] = useState(50);
     const [sDate, setSDate] = useState('2022-06-01');
     const [eDate, setEDate] = useState('2022-07-01');
     const [modal, setModal] = useState(false);
