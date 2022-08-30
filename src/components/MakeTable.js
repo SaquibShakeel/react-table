@@ -87,7 +87,7 @@ const MakeTable = () => {
           const fetchData = async () => {
               const result = await fetch(`https://admindevapi.wowtalent.live/api/admin/dashboard/installstatasticlist?fromdate=${sDate}&todate=${eDate}`);
               const data = await result.json();
-              setTableData(data.data);
+              setTableData(data.data.data);
             }
             fetchData();
         }, [sDate, eDate]);
