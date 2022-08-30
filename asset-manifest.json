@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react-table/static/css/main.cf7ce2ea.css",
-    "main.js": "/react-table/static/js/main.9bcdf463.js",
+    "main.js": "/react-table/static/js/main.1917a184.js",
     "static/media/android-filled.svg": "/react-table/static/media/android-filled.97503f5ed6e7764e2f2b2ea51ae15207.svg",
     "static/media/apple-filled.svg": "/react-table/static/media/apple-filled.fa92ba1dc42f33714132d9f06f53647b.svg",
     "index.html": "/react-table/index.html",
@@ -12,10 +12,10 @@
     "static/media/intent-request-uninstall.svg": "/react-table/static/media/intent-request-uninstall.c0235f1291019aa416cd3dce7fdf106f.svg",
     "static/media/user-data.svg": "/react-table/static/media/user-data.b752eb11cb17a83aa512e0edb2e5cff4.svg",
     "main.cf7ce2ea.css.map": "/react-table/static/css/main.cf7ce2ea.css.map",
-    "main.9bcdf463.js.map": "/react-table/static/js/main.9bcdf463.js.map"
+    "main.1917a184.js.map": "/react-table/static/js/main.1917a184.js.map"
   },
   "entrypoints": [
     "static/css/main.cf7ce2ea.css",
-    "static/js/main.9bcdf463.js"
+    "static/js/main.1917a184.js"
   ]
 }
